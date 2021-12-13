@@ -13,10 +13,20 @@ spring:
     username: root
     password: 1234
 
+#시큐리티 기본설정
+  security:
+    user:
+      name: test
+      password: 1234
+      roles:
+        - ADMIN
+        - VIEW
+##출처: https://blog.jiniworld.me/40#a01 [hello jiniworld]
+
   jpa:
     open-in-view: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     show-sql: true
