@@ -12,6 +12,16 @@ spring:
     url: jdbc:mysql://localhost:3306/ezen?serverTimezone=Asia/Seoul
     username: root
     password: 1234
+#타임리프 경로설정
+  thymeleaf:
+    prefix: classpath:templates/
+    check:
+      template:
+        location: true
+    suffix: .html
+    mode: HTML5
+    cache: false
+    order: 0
 
 #시큐리티 기본설정
   security:
@@ -26,7 +36,7 @@ spring:
   jpa:
     open-in-view: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     show-sql: true

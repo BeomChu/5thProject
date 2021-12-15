@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Kakao Login Test</h1>
+    <span th:if="${userId == null}">
+        <a href="https//kauth.kakao.com/oauth/authorize?client_id=264edb35a42e39dc36007baf5a6c82a7&redirect_uri=http://localhost:8080/login&response_type=code">
+            <img src = "img/kakaoLogo.png">
+        </a>
+    </span>
+    <span>th:if=${userId != null}</span>
+</body>
+</html>     
