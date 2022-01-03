@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
+import com.super5th.ezen.api.KakaoAPI;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,6 +17,7 @@ public class HomeController {
 
     @RequestMapping(value="/login")
     public ModelAndView login(@RequestParam("code") String code, HttpSession session) {
+        // redirect된 코드 넘겨받아서
         ModelAndView mav = new ModelAndView();
         // 1번 인증코드 요청 전달
         String accessToken = kakaoApi.getAccessToken(code);
@@ -23,13 +25,17 @@ public class HomeController {
         HashMap<String, Object> userInfo = kakaoApi.getUserInfo(accessToken);
 
         System.out.println("login info : " + userInfo.toString());
+        System.out.println("httpsession : " + session.toString());
 
         if(userInfo.get("email") != null) {
             session.setAttribute("userId", userInfo.get("email"));
             session.setAttribute("accessToken", accessToken);
+            System.out.println("session: "+session.toString());
+            System.out.println("session id: "+session.getId());
+            System.out.println("session all: " + session.getAttributeNames().toString());
         }
         mav.addObject("userId", userInfo.get("email"));
-        mav.setViewName("index");
+        mav.setViewName("index"); //if문 활용해서 회원가입으로 넘어가거나 홈페이지로 넘어가게 함
         return mav;
     }
 

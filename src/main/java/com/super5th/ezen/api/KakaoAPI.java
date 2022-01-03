@@ -1,4 +1,4 @@
-package com.super5th.ezen.kakao;
+package com.super5th.ezen.api;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -50,6 +50,8 @@ public class KakaoAPI {
             JsonParser parser = new JsonParser();
             JsonElement element = parser.parse(result);
 
+            System.out.println("element: "+ element);
+
             accessToken = element.getAsJsonObject().get("access_token").getAsString();
             refreshToken = element.getAsJsonObject().get("refresh_token").getAsString();
 
@@ -85,6 +87,7 @@ public class KakaoAPI {
 
             JsonParser parser = new JsonParser();
             JsonElement element =  parser.parse(result);
+
 
             JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
             JsonObject kakaoAccount = element.getAsJsonObject().get("kakao_account").getAsJsonObject();

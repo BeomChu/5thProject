@@ -31,7 +31,25 @@ spring:
       roles:
         - ADMIN
         - VIEW
-##출처: https://blog.jiniworld.me/40#a01 [hello jiniworld]
+  ##출처: https://blog.jiniworld.me/40#a01 [hello jiniworld]
+
+    # 페이스북 구글을 위한 로그인설정 페이스북은 사용하지 않도록 하겠음.
+    oauth2:
+      client:
+        registration:
+          facebook:
+            client-id: 991838321683525
+            client-secret: a2c8edc9ed7ce1f89c014ee36b0074db
+            scope:
+              - public_profile
+              - email
+
+          google:
+            client-id: 302515051084-09tr3al5h3lra7stnau3rpnbj5o8u0vg.apps.googleusercontent.com
+            client-secret: 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
+            scope:
+              - email
+              - profile
 
   jpa:
     open-in-view: true
@@ -41,3 +59,4 @@ spring:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     show-sql: true
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+# 카카오 로그인을 위한 설정

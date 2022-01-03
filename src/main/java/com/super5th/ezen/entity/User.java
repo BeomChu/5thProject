@@ -6,9 +6,11 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.lang.reflect.Array;
+import java.time.LocalDate;
 import java.util.Date;
 
-
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Data
 public class User {
@@ -23,6 +25,12 @@ public class User {
     @Column(nullable = false)
     private String name;
 
+    private LocalDate createDate;
+
+    @PrePersist
+    public void createDate(){
+        this.createDate=LocalDate.now();
+    }
 //    private Role role;              //enum이나 String으로 role만들어줘야함. 시큐리티도 수정예쩡
 //    private Array category;
 
@@ -33,6 +41,7 @@ public class User {
         newUser.name=name;
         return newUser;
     }
+
 
 
 
