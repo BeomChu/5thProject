@@ -1,6 +1,7 @@
 package com.super5th.ezen.config;
 
 import com.super5th.ezen.config.oauth2.PrincipalOauth2Service;
+import com.super5th.ezen.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +18,8 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final PrincipalOauth2Service principalOauth2Service;
+
+
 //
     @Bean //IOC컨테이너에 등록
     public BCryptPasswordEncoder encodePwd(){          //비밀번호 해석할때 필요해서 걸어둠?

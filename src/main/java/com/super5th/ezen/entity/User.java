@@ -25,6 +25,8 @@ public class User {
     @Column(nullable = false)
     private String name;
 
+    private String role; // enum으로 변경가능 .
+
     private LocalDate createDate;
 
     @PrePersist
