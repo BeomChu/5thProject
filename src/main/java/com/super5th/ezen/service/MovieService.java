@@ -35,8 +35,9 @@ public class MovieService {
 
        String daliyUrl="http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json";
         daliyUrl += "?key=7729620603ee6765e8f4ef827c91ebdd";
-        daliyUrl += "%TargetDt=" + targetDt;
+        daliyUrl += "&targetDt=" + targetDt;
 
+        System.out.println(daliyUrl);
         List<MovieListDto> movieListDtoList = new ArrayList<>();
 
         // 커넥션
@@ -51,21 +52,25 @@ public class MovieService {
 
             //읽고
             BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            while((line = br.readLine()) != null)
+            while((line = br.readLine()) != null) {
                 result += line;
+            }
+            System.out.println(result);
 
             //파싱
             JSONParser parser = new JSONParser();
-            JSONObject jsonObject = (JSONObject) parser.parse((String) null);
+            JSONObject jsonObject = (JSONObject) parser.parse(result);
             JSONObject json = (JSONObject) jsonObject.get("boxOfficeResult"); // 박스오피스에서 가져온 결과
+            System.out.println(json);
             JSONArray jsonArray = (JSONArray) json.get("dailyBoxOfficeList"); // 그 안에 있는 당일 순위
+            System.out.println(jsonArray);
 
             for (int i=0; i<jsonArray.size(); i++) {
                 MovieListDto movieListDto = new MovieListDto();
                 JSONObject obj= (JSONObject) jsonArray.get(i);
                 movieListDto.setRank((String) obj.get("rank"));
-                movieListDto.setMovieCd((String) obj.get("MovieCd"));
-                movieListDto.setMovieNm((String) obj.get("MovieNm"));
+                movieListDto.setMovieCd((String) obj.get("movieCd"));
+                movieListDto.setMovieNm((String) obj.get("movieNm"));
                 movieListDtoList.add(movieListDto);
             }
 
@@ -80,9 +85,9 @@ public class MovieService {
     public List<MovieListDto> getWeeklyMovieList(String targetDt){        //박스오피스 주간순위
 
 
-        String weeklyUrl="http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchweeklyBoxOfficeList.json";
+        String weeklyUrl="https://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchWeeklyBoxOfficeList.json";
         weeklyUrl += "?key=7729620603ee6765e8f4ef827c91ebdd";
-        weeklyUrl += "&TargetDt=" + targetDt;
+        weeklyUrl += "&targetDt=" + targetDt;
         weeklyUrl += "&weekGb=0";
 
         List<MovieListDto> movieListDtoList = new ArrayList<>();
@@ -104,7 +109,7 @@ public class MovieService {
 
             //파싱
             JSONParser parser = new JSONParser();
-            JSONObject jsonObject = (JSONObject) parser.parse((String) null);
+            JSONObject jsonObject = (JSONObject) parser.parse(result);
             JSONObject json = (JSONObject) jsonObject.get("boxOfficeResult"); // 박스오피스에서 가져온 결과
             JSONArray jsonArray = (JSONArray) json.get("weeklyBoxOfficeList"); // 그 안에 있는 주간 순위
 
@@ -112,8 +117,8 @@ public class MovieService {
                 MovieListDto movieListDto = new MovieListDto();
                 JSONObject obj= (JSONObject) jsonArray.get(i);
                 movieListDto.setRank((String) obj.get("rank"));
-                movieListDto.setMovieCd((String) obj.get("MovieCd"));
-                movieListDto.setMovieNm((String) obj.get("MovieNm"));
+                movieListDto.setMovieCd((String) obj.get("movieCd"));
+                movieListDto.setMovieNm((String) obj.get("movieNm"));
                 movieListDtoList.add(movieListDto); //필드에 작성해둔 어레이 리스트
             }
 
